@@ -8,7 +8,7 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class WordCountMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+public class WordCountMapper extends Mapper<Text, Text, Text, IntWritable> {
 	
 	{
 		System.out.println("initialize mapper");
@@ -18,7 +18,7 @@ public class WordCountMapper extends Mapper<LongWritable, Text, Text, IntWritabl
     private Text word = new Text();
 //    private Text one = new Text("1");
     
-	public void map(LongWritable key, Text value, Context context) {
+	public void map(Text key, Text value, Context context) {
 		System.out.println("key "+key+" value "+value);
 		String line = value.toString();
         StringTokenizer tokenizer = new StringTokenizer(line);

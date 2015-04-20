@@ -13,6 +13,7 @@ public class WordCountDriver {
 
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
+		conf.set("key.value.separator.in.input.line", "\t");
 		Job job = Job.getInstance(conf, "JobName");
 		job.setJarByClass(indexer.WordCountDriver.class);
 		// TODO: specify a mapper
@@ -37,10 +38,16 @@ public class WordCountDriver {
 		FileOutputFormat.setOutputPath(job, new Path("./output"));
 
 		System.out.println("finish set up");
-		if (!job.waitForCompletion(true))
-			return;
-		else{
-			System.out.println("running");
+		
+		try{
+			if (!job.waitForCompletion(true))
+				System.out.println("not running");
+			else{
+				System.out.println("running");
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 
