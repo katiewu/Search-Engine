@@ -27,15 +27,15 @@ public class WordCountDriver {
 		job.setMapOutputValueClass(IntWritable.class);
 		// TODO: specify output types
 		job.setOutputKeyClass(Text.class);
-		job.setOutputValueClass(Text.class);
+		job.setOutputValueClass(IntWritable.class);
 		
 		job.setInputFormatClass(KeyValueTextInputFormat.class);
 		
 
 //		KeyValueTextInputFormat.addInputPath(job, new Path("./input"));
 		// TODO: specify input and output DIRECTORIES (not files)
-		FileInputFormat.addInputPath(job, new Path("./input"));
-		FileOutputFormat.setOutputPath(job, new Path("./output"));
+		FileInputFormat.addInputPath(job, new Path(args[0]));
+		FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
 		System.out.println("finish set up");
 		
