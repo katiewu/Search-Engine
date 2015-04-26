@@ -19,8 +19,8 @@ public class WordCountReducer extends Reducer<Text, IntWritable, Text, DoubleWri
         for(IntWritable value:values){
         	sum += value.get();
         }
-        double idf = Math.log(944.0/(sum*1.0));
-//        double idf = (double)sum;
+//        double idf = Math.log(944.0/(sum*1.0));
+        double idf = (double)sum;
         context.write(key, new DoubleWritable(idf));
 	}
 

@@ -8,11 +8,12 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 public class RankingMapper extends Mapper<LongWritable, Text, Text, Text> {
 
-	 @Override
+	    @Override
 	    public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 	        int firstTabIndex = value.find("\t");
 	        int secondTabIndex = value.find("\t", firstTabIndex + 1);
 
+	        // from
 	        String from = Text.decode(value.getBytes(), 0, firstTabIndex);
 	        // from + rank + tab
 	        String fromAndRank = Text.decode(value.getBytes(), 0, secondTabIndex + 1);

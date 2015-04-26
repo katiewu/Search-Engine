@@ -8,9 +8,7 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.KeyValueTextInputFormat;
-import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
@@ -28,7 +26,7 @@ public class PageRankDriver extends Configured implements Tool {
 
 
 	    private static NumberFormat nf = new DecimalFormat("00");
-	    private static int RankIterationTimes = 5;
+	    private static int RankIterationTimes = 1;
 
 	    public static void main(String[] args) throws Exception {
 	        System.exit(ToolRunner.run(new Configuration(), new PageRankDriver(), args));
@@ -71,12 +69,6 @@ public class PageRankDriver extends Configured implements Tool {
 	        Job initJob = Job.getInstance(conf, "initJob");
 	        
 	        initJob.setJarByClass(PageRankDriver.class);
-	        initJob.setMapOutputKeyClass(Text.class);
-	        initJob.setMapOutputValueClass(Text.class);
-
-
-	        initJob.setOutputKeyClass(Text.class);
-	        initJob.setOutputValueClass(Text.class);
 
 	        initJob.setMapperClass(InitMapper.class);
 	        initJob.setReducerClass(InitReducer.class);
@@ -84,8 +76,8 @@ public class PageRankDriver extends Configured implements Tool {
 	        FileInputFormat.setInputPaths(initJob, new Path(inputPath));
 	        FileOutputFormat.setOutputPath(initJob, new Path(outputPath));
 
-	        initJob.setInputFormatClass(KeyValueTextInputFormat.class);
-	        initJob.setOutputFormatClass(TextOutputFormat.class);
+	        initJob.setInputFormatClass(KeyValueTextInputFormat.class);	        
+	        initJob.setOutputKeyClass(Text.class);
 
 	        return initJob.waitForCompletion(true);
 	    }
@@ -96,12 +88,8 @@ public class PageRankDriver extends Configured implements Tool {
 
 	        Job rankingJob = Job.getInstance(conf, "rankingJob");
 	        rankingJob.setJarByClass(PageRankDriver.class);
-	        
-	        rankingJob.setMapOutputKeyClass(Text.class);
-	        rankingJob.setMapOutputValueClass(Text.class);
 
 	        rankingJob.setOutputKeyClass(Text.class);
-	        rankingJob.setOutputValueClass(Text.class);
 
 	        FileInputFormat.setInputPaths(rankingJob, new Path(inputPath));
 	        FileOutputFormat.setOutputPath(rankingJob, new Path(outputPath));
@@ -119,15 +107,11 @@ public class PageRankDriver extends Configured implements Tool {
 	        resultJob.setJarByClass(PageRankDriver.class);
 
 	        resultJob.setOutputKeyClass(FloatWritable.class);
-	        resultJob.setOutputValueClass(Text.class);
 
 	        resultJob.setMapperClass(ResultMapper.class);
 
 	        FileInputFormat.setInputPaths(resultJob, new Path(inputPath));
 	        FileOutputFormat.setOutputPath(resultJob, new Path(outputPath));
-
-	        resultJob.setInputFormatClass(TextInputFormat.class);
-	        resultJob.setOutputFormatClass(TextOutputFormat.class);
 
 	        return resultJob.waitForCompletion(true);
 	    }

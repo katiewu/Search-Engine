@@ -27,6 +27,26 @@ public class ContentProcessMapper extends Mapper<Text, Text, Text, Text> {
 		while (tokenizer.hasMoreTokens()) {
 			word = tokenizer.nextToken(); 
 			if(word.equals("")) continue;
+			boolean flag = false;
+			for(int i=0;i<word.length();i++){
+				if (Character.UnicodeBlock.of(word.charAt(i)) != Character.UnicodeBlock.BASIC_LATIN) {
+					flag = true;
+					break;
+				}
+			}	
+			if(flag) continue;
+			int i = 0;
+			while(i<word.length() && ( !Character.isLetter(word.charAt(i)) && !Character.isDigit(word.charAt(i)) )){
+				i++;
+			}
+			if(i>=word.length()) continue;
+			word = word.substring(i);
+			i = word.length()-1;
+			while(i>=0 && ( !Character.isLetter(word.charAt(i)) && !Character.isDigit(word.charAt(i)) )){
+				i--;
+			}
+			if(i<0) continue;
+			word = word.substring(0, i+1);
 			stemmer.setCurrent(word);
 			if(stemmer.stem()){
 				sb.append(stemmer.getCurrent());
@@ -57,26 +77,6 @@ public class ContentProcessMapper extends Mapper<Text, Text, Text, Text> {
 		while (tokenizer.hasMoreTokens()) {
 			word = tokenizer.nextToken();
 			if(word.equals("")) continue;
-			boolean flag = false;
-			for(int i=0;i<word.length();i++){
-				if (Character.UnicodeBlock.of(word.charAt(i)) != Character.UnicodeBlock.BASIC_LATIN) {
-					flag = true;
-					break;
-				}
-			}	
-			if(flag) continue;
-			int i = 0;
-			while(i<word.length() && ( !Character.isLetter(word.charAt(i)) && !Character.isDigit(word.charAt(i)) )){
-				i++;
-			}
-			if(i>=word.length()) continue;
-			word = word.substring(i);
-			i = word.length()-1;
-			while(i>=0 && ( !Character.isLetter(word.charAt(i)) && !Character.isDigit(word.charAt(i)) )){
-				i--;
-			}
-			if(i<0) continue;
-			word = word.substring(0, i+1);
 			if(!wordSet.containsKey(word)){
 				WordInfo info = new WordInfo();
 				wordSet.put(word, info);
