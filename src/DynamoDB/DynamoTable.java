@@ -35,9 +35,10 @@ import com.amazonaws.services.dynamodbv2.util.Tables;
  */
 public class DynamoTable {
 
+
+
 	private static AmazonDynamoDBClient dynamoDB = null; //DB, collection of tables, one instance only, shared with tables
 	static DynamoDBMapper mapper;
-	
 	/**
 	 * The only information needed to create a client are security credentials
 	 * consisting of the AWS Access Key ID and Secret Access Key. All other
@@ -49,7 +50,7 @@ public class DynamoTable {
 	 * @see com.amazonaws.auth.ProfilesConfigFile
 	 * @see com.amazonaws.ClientConfiguration
 	 */
-	private static void init() throws Exception {
+	static void init() throws Exception {
 		/*
 		 * The ProfileCredentialsProvider will return your [aws150415]
 		 * credential profile by reading from the credentials file located at

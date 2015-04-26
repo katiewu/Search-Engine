@@ -105,4 +105,5 @@ public class Anchor {
 
 		return new Anchor(word, id, types);
 	}
+	
 }

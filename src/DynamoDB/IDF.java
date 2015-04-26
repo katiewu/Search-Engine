@@ -11,7 +11,6 @@ import Utils.BinaryUtils;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 /**
  * @author dichenli
@@ -19,20 +18,24 @@ import com.sun.org.apache.bcel.internal.generic.NEW;
  */
 @DynamoDBTable(tableName="IDF")
 public class IDF {
-	String word; 
+	String word; //binary data
 	double idf; //page idf
 	
 	@DynamoDBHashKey(attributeName="word")
-    public String getId() { return word; }
-	
+    public String getWord() { return word; }
+	public void setWord(String word) {
+		this.word = word;
+	}
     
     @DynamoDBAttribute(attributeName="idf")
     public double getidf() { return idf; }    
-
+    public void setidf(double idf) {
+    	this.idf = idf;
+    }
     
     @Override
     public String toString() {
-       return word + "\t" + idf;
+       return word+ idf;
     }
     
     public static IDF parseInput(String line) {
@@ -66,11 +69,11 @@ public class IDF {
 		return item;
 	}
     
-    public static IDF load(String word) {
+    public static IDF load(String word) throws Exception {
+    	if (DynamoTable.mapper == null) {
+    		DynamoTable.init();
+    	}
     	return DynamoTable.mapper.load(DynamoDB.IDF.class, word);
     }
 	
-    public static void main(String[] args) {
-    	System.out.println(load("the"));
-    }
 }

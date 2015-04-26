@@ -62,5 +62,20 @@ public class DocURL {
 		item.setURL(url);
 		return item;
 	}
+    
+    public static DocURL loadFromByteBuffer(ByteBuffer bytes) throws Exception {
+    	return load(bytes.array());
+    }
+    
+    public static DocURL loadFromHexString(String hexStr) throws Exception {
+    	return load(BinaryUtils.fromHex(hexStr));
+    }
+    
+    public static DocURL load(byte[] id) throws Exception {
+    	if (DynamoTable.mapper == null) {
+    		DynamoTable.init();
+    	}
+    	return DynamoTable.mapper.load(DocURL.class, id);
+    }
 
 }
