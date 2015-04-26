@@ -1,3 +1,0 @@
-1	test test test value
-2	value own apple own
-3	own

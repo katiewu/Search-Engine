@@ -31,8 +31,8 @@ public class ContentProcessDriver {
 
 //		KeyValueTextInputFormat.addInputPath(job, new Path("./input"));
 		// TODO: specify input and output DIRECTORIES (not files)
-		FileInputFormat.addInputPath(job, new Path("./input/content"));
-		FileOutputFormat.setOutputPath(job, new Path("./output"));
+		FileInputFormat.addInputPath(job, new Path("./content"));
+		FileOutputFormat.setOutputPath(job, new Path("./contentoutput"));
 
 		System.out.println("finish set up");
 		

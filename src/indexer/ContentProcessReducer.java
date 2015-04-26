@@ -12,14 +12,15 @@ public class ContentProcessReducer extends Reducer<Text, Text, Text, Text> {
 		int size = 0;
 		StringBuilder sb = new StringBuilder();
 		for(Text val:values){
-			sb.append(val.toString());
-			sb.append("\t");
-			size++;
+//			sb.append(val.toString());
+//			sb.append("\t");
+//			size++;
+			context.write(key, val);
 		}
-		sb.insert(0, Integer.toString(size)+"\t");
-		String result = new String(sb);
-		// idf
-		context.write(key, new Text(result));
+//		sb.insert(0, Integer.toString(size)+"\t");
+//		String result = new String(sb);
+//		// idf
+//		context.write(key, new Text(result));
 	}
 
 }

@@ -1,13 +1,13 @@
 package indexer;
 
 import java.io.IOException;
-import java.util.Iterator;
 
+import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class WordCountReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+public class WordCountReducer extends Reducer<Text, IntWritable, Text, DoubleWritable> {
 	
 	{
 		System.out.println("initialize reducer");
@@ -19,7 +19,9 @@ public class WordCountReducer extends Reducer<Text, IntWritable, Text, IntWritab
         for(IntWritable value:values){
         	sum += value.get();
         }
-        context.write(key, new IntWritable(sum));
+        double idf = Math.log(944.0/(sum*1.0));
+//        double idf = (double)sum;
+        context.write(key, new DoubleWritable(idf));
 	}
 
 }
