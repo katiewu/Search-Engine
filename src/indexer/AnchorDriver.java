@@ -31,8 +31,8 @@ public class AnchorDriver {
 
 //		KeyValueTextInputFormat.addInputPath(job, new Path("./input"));
 		// TODO: specify input and output DIRECTORIES (not files)
-		FileInputFormat.addInputPath(job, new Path("./input/content"));
-		FileOutputFormat.setOutputPath(job, new Path("./anchor"));
+		FileInputFormat.addInputPath(job, new Path("./content"));
+		FileOutputFormat.setOutputPath(job, new Path("./contentanchor"));
 
 		System.out.println("finish set up");
 		

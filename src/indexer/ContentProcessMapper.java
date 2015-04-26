@@ -12,7 +12,7 @@ import snowballstemmer.PorterStemmer;
 
 public class ContentProcessMapper extends Mapper<Text, Text, Text, Text> {
 	
-	private static final String DELIMATOR = " \t\n\r\"'-_/.,:;|{}[]!@#%^&*()<>=+`~?";
+	private static final String PARSER = " \t\n\r";
 	private static final double a = 0.4;
 	
 	public static String html2text(String content) {
@@ -20,7 +20,7 @@ public class ContentProcessMapper extends Mapper<Text, Text, Text, Text> {
 	}
 	
 	public static String stemContent(String content) {
-		StringTokenizer tokenizer = new StringTokenizer(content, DELIMATOR);
+		StringTokenizer tokenizer = new StringTokenizer(content, PARSER);
 		String word = "";
 		PorterStemmer stemmer = new PorterStemmer();
 		StringBuilder sb = new StringBuilder();
@@ -51,12 +51,32 @@ public class ContentProcessMapper extends Mapper<Text, Text, Text, Text> {
 		// process one document
 		HashMap<String, WordInfo> wordSet = new HashMap<String, WordInfo>();
 		int position = 0;
-		StringTokenizer tokenizer = new StringTokenizer(content, DELIMATOR);
+		StringTokenizer tokenizer = new StringTokenizer(content, PARSER);
 		String word = "";
 		int max = 0;
 		while (tokenizer.hasMoreTokens()) {
 			word = tokenizer.nextToken();
 			if(word.equals("")) continue;
+			boolean flag = false;
+			for(int i=0;i<word.length();i++){
+				if (Character.UnicodeBlock.of(word.charAt(i)) != Character.UnicodeBlock.BASIC_LATIN) {
+					flag = true;
+					break;
+				}
+			}	
+			if(flag) continue;
+			int i = 0;
+			while(i<word.length() && ( !Character.isLetter(word.charAt(i)) && !Character.isDigit(word.charAt(i)) )){
+				i++;
+			}
+			if(i>=word.length()) continue;
+			word = word.substring(i);
+			i = word.length()-1;
+			while(i>=0 && ( !Character.isLetter(word.charAt(i)) && !Character.isDigit(word.charAt(i)) )){
+				i--;
+			}
+			if(i<0) continue;
+			word = word.substring(0, i+1);
 			if(!wordSet.containsKey(word)){
 				WordInfo info = new WordInfo();
 				wordSet.put(word, info);
@@ -73,6 +93,7 @@ public class ContentProcessMapper extends Mapper<Text, Text, Text, Text> {
 			String wordinfo = docID+"\t"+tf+"\t"+wi.positionList;
 			context.write(new Text(w), new Text(wordinfo));
 		}
+		if(!wordSet.containsKey("the")) System.out.println(docID);
 	}
 
 }
