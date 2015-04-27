@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee"
@@ -22,3 +23,24 @@
     </servlet-mapping>
 
 </web-app>     
+=======
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app 
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" 
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+ <web-app>
+    
+   <servlet>
+     <servlet-name>search</servlet-name>
+     <servlet-class>SearchInterface.SearchServlet</servlet-class> 
+   </servlet>
+    
+   <servlet-mapping>
+     <servlet-name>search</servlet-name>
+     <url-pattern>/search</url-pattern>
+   </servlet-mapping>  
+   
+</web-app>
+>>>>>>> f24c69ebe3e9c5b5883f316551e29179860f7ff3

@@ -71,9 +71,14 @@ public class DocURL {
     	return load(BinaryUtils.fromHex(hexStr));
     }
     
-    public static DocURL load(byte[] id) throws Exception {
+    // retrieve
+    public static DocURL load(byte[] id){
     	if (DynamoTable.mapper == null) {
-    		DynamoTable.init();
+    		try {
+				DynamoTable.init();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
     	}
     	return DynamoTable.mapper.load(DocURL.class, id);
     }

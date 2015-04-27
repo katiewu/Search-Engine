@@ -8,6 +8,6 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 public class InitMapper extends Mapper<Text, Text, Text, Text>{
 	public void map(Text key, Text value, Context context) throws IOException, InterruptedException {
-		context.write(key, value);;
+		context.write(key, value);
 	}
 }

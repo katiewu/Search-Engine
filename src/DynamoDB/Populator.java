@@ -1,6 +1,5 @@
 package DynamoDB;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 
 public interface Populator {

@@ -124,16 +124,14 @@ public class ObjectPersistenceCRUDExample {
 		item.setId(PRODUCT_ID);
 		item.setTitle("Book PRODUCT_ID");
 		item.setISBN("611-1111111111");
-		item.setBookAuthors(new HashSet(Arrays.asList("Author1",
-				"Author2")));
+		item.setBookAuthors(new HashSet(Arrays.asList("Author1", "Author2")));
 		// Save the item (book).
 		mapper.save(item);
 	}
 
 	private void update(CatalogItem itemRetrieved) {
 		itemRetrieved.setISBN("622-2222222222");
-		itemRetrieved.setBookAuthors(new HashSet(Arrays.asList(
-				"Author1", "Author3")));
+		itemRetrieved.setBookAuthors(new HashSet(Arrays.asList("Author1", "Author3")));
 		mapper.save(itemRetrieved);
 		System.out.println("Item updated:");
 		System.out.println(itemRetrieved);

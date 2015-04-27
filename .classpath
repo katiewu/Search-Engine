@@ -178,8 +178,15 @@
 	<classpathentry kind="lib" path="/usr/local/Cellar/hadoop/2.6.0/libexec/share/hadoop/common/lib/activation-1.1.jar"/>
 	<classpathentry kind="lib" path="/usr/local/Cellar/hadoop/2.6.0/libexec/share/hadoop/common/hadoop-nfs-2.6.0.jar"/>
 	<classpathentry kind="lib" path="/usr/local/Cellar/hadoop/2.6.0/libexec/share/hadoop/common/hadoop-common-2.6.0.jar"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="/Users/Jingyuan/Downloads/jsoup-1.8.2.jar"/>
 	<classpathentry kind="lib" path="/Users/Jingyuan/Downloads/SnowballStemmer.jar"/>
+=======
+	<classpathentry kind="lib" path="/Users/dichenli/Documents/course materials/eclipse/Search-Engine/jsoup-1.8.2.jar"/>
+	<classpathentry kind="lib" path="/Users/dichenli/Documents/course materials/eclipse/Search-Engine/SnowballStemmer.jar"/>
+	<classpathentry kind="con" path="com.amazonaws.eclipse.sdk.AWS_JAVA_SDK"/>
+	<classpathentry kind="lib" path="SnowballStemmer.jar"/>
+>>>>>>> f24c69ebe3e9c5b5883f316551e29179860f7ff3
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="output" path="bin"/>
