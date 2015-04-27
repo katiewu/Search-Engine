@@ -180,5 +180,7 @@
 	<classpathentry kind="lib" path="/usr/local/Cellar/hadoop/2.6.0/libexec/share/hadoop/common/hadoop-common-2.6.0.jar"/>
 	<classpathentry kind="lib" path="/Users/Jingyuan/Downloads/jsoup-1.8.2.jar"/>
 	<classpathentry kind="lib" path="/Users/Jingyuan/Downloads/SnowballStemmer.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
