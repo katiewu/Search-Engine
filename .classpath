@@ -181,5 +181,8 @@
 	<classpathentry kind="lib" path="/Users/dichenli/Documents/course materials/eclipse/Search-Engine/jsoup-1.8.2.jar"/>
 	<classpathentry kind="lib" path="/Users/dichenli/Documents/course materials/eclipse/Search-Engine/SnowballStemmer.jar"/>
 	<classpathentry kind="con" path="com.amazonaws.eclipse.sdk.AWS_JAVA_SDK"/>
+	<classpathentry kind="lib" path="SnowballStemmer.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

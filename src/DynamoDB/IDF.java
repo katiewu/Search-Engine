@@ -69,9 +69,15 @@ public class IDF {
 		return item;
 	}
     
-    public static IDF load(String word) throws Exception {
+    
+    // retrieve
+    public static IDF load(String word) {
     	if (DynamoTable.mapper == null) {
-    		DynamoTable.init();
+    		try {
+				DynamoTable.init();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
     	}
     	return DynamoTable.mapper.load(DynamoDB.IDF.class, word);
     }

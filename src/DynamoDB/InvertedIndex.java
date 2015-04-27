@@ -6,6 +6,7 @@ package DynamoDB;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import Utils.BinaryUtils;
@@ -30,6 +31,10 @@ public class InvertedIndex {
 		this.id = id2;
 		this.positions = positions2;
 		this.tf = tf2;
+	}
+	
+	public InvertedIndex(String word2) {
+		this.word = word2;
 	}
 
 	@DynamoDBRangeKey(attributeName="id")
@@ -124,6 +129,22 @@ public class InvertedIndex {
 
 		return new InvertedIndex(word, id, tf, positions);
 	}
+	
+	 public static List<InvertedIndex> query(String queryWord) {
+		 if (DynamoTable.mapper == null) {
+	    		try {
+					DynamoTable.init();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+	     }
+		 
+		 InvertedIndex wordKey = new InvertedIndex(queryWord);
+		 DynamoDBQueryExpression<InvertedIndex> queryExpression = new DynamoDBQueryExpression<InvertedIndex>().withHashKeyValues(wordKey);
+		 
+		 List<InvertedIndex> collection = DynamoTable.mapper.query(InvertedIndex.class, queryExpression);
+		 return collection;
+	 }
 	
 	
 }

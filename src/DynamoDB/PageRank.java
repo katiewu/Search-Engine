@@ -71,5 +71,17 @@ public class PageRank {
 		item.setRank(rank);
 		return item;
 	}
+    
+    public static PageRank load(String word) {
+    	if (DynamoTable.mapper == null) {
+    		try {
+				DynamoTable.init();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}
+    	return DynamoTable.mapper.load(DynamoDB.PageRank.class, word);
+    }
+    
 	
 }

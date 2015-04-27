@@ -2,15 +2,17 @@ package SearchInterface;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import DynamoDB.DocURL;
+import DynamoDB.IDF;
+import DynamoDB.InvertedIndex;
+import DynamoDB.PageRank;
 import snowballstemmer.PorterStemmer;
 
 /**
@@ -68,9 +70,10 @@ public class SearchServlet extends HttpServlet {
 		out.println("<html><body>");
 		out.println("<form action=\"\" method=\"POST\">");
 		out.println("<input type=\"text\" name=\"search\">");
-		out.println("<br><input type=\"submit\" value=\"Search\">");
+		out.println("<br><input type=\"submit\" value=\"Search!!!\">");
 		out.println("</form>");
 		out.println("</body></html>");
+		System.out.println("1");
 	}
 
 	/**
@@ -84,12 +87,59 @@ public class SearchServlet extends HttpServlet {
 		 * search query
 		 */
 		out.println("<html><body>");
-		out.println("<h1>Result</h1>");
-		for(String w:parseQuery){
-			out.println("<li>"+w+"</li>");
+		out.println("<h1>Result!!!</h1>");
+		
+		System.out.println("0");
+		String word1 = parseQuery.get(0);
+		List<InvertedIndex> invertedIndexCollection = InvertedIndex.query(word1);
+		ArrayList<ResultType> res = new ArrayList<ResultType>();
+		
+		for(InvertedIndex item : invertedIndexCollection) {
+			float rank = PageRank.load(word1).getRank();
+			double idf = IDF.load(word1).getidf();
+			float tf = item.getTF();
+			String url = DocURL.load(item.getId().array()).getURL();
+			res.add(new ResultType(url, rank * idf * tf));
 		}
+		
+		Collections.sort(res, new ResultTypeComparator());
+		
+		for(int i = 0; i < res.size(); i++) {
+			out.println(res.get(i).url);
+		}
+		
+		
 		out.println("</body></html>");
 		
+		
+	}
+	
+	
+	
+	private class ResultType{
+		String url;
+		double rank;
+		
+		private ResultType(String url, double rank) {
+			this.url = url;
+			this.rank = rank;
+		}
+		
+		private String getURL() {
+			return this.url;
+		}
+		
+		private double getRank() {
+			return this.rank;
+		}
+	}
+	
+	private class ResultTypeComparator implements Comparator<ResultType> {
+
+		@Override
+		public int compare(ResultType o1, ResultType o2) {
+			return new Double(o2.getRank()).compareTo(o1.getRank());
+		}
 		
 	}
 
