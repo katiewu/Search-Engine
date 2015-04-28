@@ -6,6 +6,8 @@ package DynamoDB;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
+import DynamoDB.DynamoTable;
+import DynamoDB.IDF;
 import Utils.BinaryUtils;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;

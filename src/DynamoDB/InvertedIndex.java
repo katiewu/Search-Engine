@@ -9,6 +9,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import DynamoDB.DynamoTable;
+import DynamoDB.InvertedIndex;
 import Utils.BinaryUtils;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
@@ -131,6 +133,7 @@ public class InvertedIndex {
 	}
 	
 	 public static List<InvertedIndex> query(String queryWord) {
+			
 		 if (DynamoTable.mapper == null) {
 	    		try {
 					DynamoTable.init();

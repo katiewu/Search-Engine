@@ -72,7 +72,7 @@ public class PageRank {
 		return item;
 	}
     
-    public static PageRank load(String word) {
+    public static PageRank load(ByteBuffer docID) {
     	if (DynamoTable.mapper == null) {
     		try {
 				DynamoTable.init();
@@ -80,7 +80,7 @@ public class PageRank {
 				e.printStackTrace();
 			}
     	}
-    	return DynamoTable.mapper.load(DynamoDB.PageRank.class, word);
+    	return DynamoTable.mapper.load(PageRank.class, docID);
     }
     
 	

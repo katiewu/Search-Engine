@@ -80,7 +80,7 @@ public class DocURL {
 				e.printStackTrace();
 			}
     	}
-    	return DynamoTable.mapper.load(DocURL.class, id);
+    	return DynamoTable.mapper.load(DocURL.class, ByteBuffer.wrap(id));
     }
 
 }

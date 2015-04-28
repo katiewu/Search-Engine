@@ -95,7 +95,15 @@ public class SearchServlet extends HttpServlet {
 		ArrayList<ResultType> res = new ArrayList<ResultType>();
 		
 		for(InvertedIndex item : invertedIndexCollection) {
-			float rank = PageRank.load(word1).getRank();
+			System.out.println("InvertedIndex = " + item.getId().array());
+			PageRank rankItem = PageRank.load(item.getId());
+			
+			if(rankItem == null) {
+				continue;
+			}
+			
+			System.out.println("rankItem = " + rankItem.toString());
+			float rank = rankItem.getRank();
 			double idf = IDF.load(word1).getidf();
 			float tf = item.getTF();
 			String url = DocURL.load(item.getId().array()).getURL();
@@ -125,9 +133,6 @@ public class SearchServlet extends HttpServlet {
 			this.rank = rank;
 		}
 		
-		private String getURL() {
-			return this.url;
-		}
 		
 		private double getRank() {
 			return this.rank;
